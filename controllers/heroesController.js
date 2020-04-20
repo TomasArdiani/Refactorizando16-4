@@ -1,4 +1,5 @@
-
+// Leyendo y parseando (en array) el contenido de heroes.json
+const heroes = JSON.parse(fs.readFileSync(__dirname + '/data/heroes.json', 'utf-8'));
 
 let heroesController = {
     heroes : function(req,res) {
@@ -12,8 +13,22 @@ let heroesController = {
 
 	        } else {//SiNO se encuentra se envía el mensaje de no encontrado
 		        res.send("No se encontro a ese heroe")};
-    }
+    },
 
-};
+    resena: function (req, res) {
+
+        // Acá lo primero será encontrar al héroe que corresponda
+        let heroe = heroes.find(h => h.id == req.params.id);
+        if(!heroe) {// Si NO se encuentra al héroe se envía un mensaje
+            res.send("No encontramos un héroe para mostrarte su biografía");
+        }else { 	// Si se encuentra al héroe:
+            if (req.params.ok!= undefined
+                 && req.params.ok == 'ok'	){
+                    res.send(`${heroe.nombre}: ${heroe.resenia}`);
+                 }else {res.send(`${heroe.nombre}: "Lamento que no desees saber más de mi :("`);
+                }
+            }
+
+},}
 
 module.exports = heroesController;

@@ -3,9 +3,11 @@ let heroesController = require ('../controllers/heroesController.js')
 
 let router = express.Router();
 
-router.get("./heroes", heroesController.heroes);
+router.get("/", heroesController.heroes);
 
-router.get ("./heroes/detalle/:id", heroesController.detalle);
+router.get ("/detalle/:id", heroesController.detalle);
+
+router.get ("/:id/bio/:ok?'", heroesController.resena)
 
 
 module.exports = router;
